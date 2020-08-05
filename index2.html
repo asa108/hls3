@@ -1,0 +1,55 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <video id="video" class="video-js vjs-default-skin" width="1000" controls data-setup='{}'>
+    <source src="http://mirrorblender.top-ix.org/movies/sintel-1024-surround.mp4" type='video/mp4' label='SD' />
+  </video>
+  <script>
+    videojs('video').videoJsResolutionSwitcher()
+  </script>
+  <script src="videojs-resolution-switcher.js"></script>
+
+
+  <script>
+    videojs('video', {
+      controls: true,
+      plugins: {
+        videoJsResolutionSwitcher: {
+          default: 'high',
+          dynamicLabel: true
+        }
+      }
+    }, function () {
+
+      // Add dynamically sources via updateSrc method
+      player.updateSrc([{
+          src: '/video/1080_out.m3u8',
+          type: 'video/m3u8',
+          label: '360'
+        },
+        {
+          src: '/video/360_out.m3u8',
+          type: 'video/m3u8',
+          label: '720'
+        }
+      ])
+
+      player.on('resolutionchange', function () {
+        console.info('Source changed to %s', player.src())
+      })
+
+    })
+  </script>
+
+</body>
+
+</html> -->
