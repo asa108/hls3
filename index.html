@@ -5,17 +5,17 @@
 <head>
   <title>Parcel Sandbox</title>
   <meta charset="UTF-8" />
-
+  <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
-  <h1>Hello World</h1>
+  <h1>JS と Hls.js</h1>
   <script src="https://cdn.jsdelivr.net/hls.js/latest/hls.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
   <script src="//cdn.jsdelivr.net/npm/hls.js@latest"></script>
   <script src="//cdn.jsdelivr.net/hls.js/latest/hls.min.js"></script>
 
-  <video id="video" src='https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8'
+  <video id="video" src="https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8"
     style="width: 800px; height: 600px;" controls muted autoplay playsinline>
     <!-- <source src='/video/playlist.m3u8'> -->
     <!-- type='application/x-mpegURL' -->
@@ -34,48 +34,53 @@
     }
   </script> -->
 
-  <button onclick='changeResolution(0)'>ボタン360</button>
-  <button onclick='changeResolution(3)'>ボタン1080</button>
-
-
+  <button onclick="changeResolution(0)" class="btn1">ボタン360</button>
+  <button onclick="changeResolution(3)" class="btn2">ボタン1080</button>
 
   <script>
+    // buttonのchangeResolution()の中の引数がnとして渡されている
     function changeResolution(n) {
-      console.log(n)
-      hls.currentLevel = n
+      console.log(n); //引数に入っている数字
+      hls.currentLevel = n;
 
       setTimeout(() => {
-        console.log(hls.nextLevel)
-      }, 1000)
+        console.log(hls.currentLevel); //上のconsoleと同じ数字
+      }, 1000);
     }
 
     var hls = new Hls();
 
     if (Hls.isSupported()) {
-      var video = document.getElementById('video');
+      var video = document.getElementById("video");
       // bind them together
       hls.attachMedia(video);
       // ATTACHED 取り付けられた
       hls.on(Hls.Events.MEDIA_ATTACHED, function () {
         console.log("video and hls.js are now bound together !");
-        hls.loadSource("https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8");
+        // hls.loadSource(
+        //   "https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8"
+        // );
+        hls.loadSource(
+          "/video/playlist.m3u8"
+        );
         // PARSED 渡された
         hls.on(Hls.Events.MANIFEST_PARSED, function (event, data) {
-          console.log(event); //hlsManifestParsed
-          console.log("manifest loaded, found " + data.levels.length + " quality level");
-          console.log(data.levels) // 4
-          hls.currentLevel()
+          hls.currentLevel();
+          video.play();
+          // console.log(event); //hlsManifestParsed
+          // console.log(
+          //   "manifest loaded, found " + data.levels.length + " quality level"
+          // ); //manifest loaded, found 4 quality level
+          // console.log(data.levels); // 4
+
           // hls.autoLevelEnabled = false;
           // hls.currentLevel = 3;
-          video.play();
         });
       });
     }
   </script>
 
   <br />
-
-
 </body>
 
 </html>
